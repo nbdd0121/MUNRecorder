@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html style="height:100%;width:100%;">
+<head>
+<meta charset="utf-8"/>
+<title>MUN</title>
+<link rel="stylesheet" href="bin/css/maincss.css" type="text/css"/>
+<script type="text/javascript" src="bin/js/jquery.js"></script>
+<script type="text/javascript" src="bin/js/html5.js"></script>
+<script>
+function disp(a){
+	return '<img src="'+(a?'bin/img/present.png':'bin/img/absent.png')+'"/>';
+}
+if(/firefox/.test(navigator.userAgent.toLowerCase()))browser="Firefox";
+else if(/webkit/.test(navigator.userAgent.toLowerCase()))browser="Webkit";
+else if(/opera/.test(navigator.userAgent.toLowerCase()))browser="Opera";
+else if(/msie/.test(navigator.userAgent.toLowerCase()))browser="Internet Explorer";
+var lan=navigator.language||navigator.browserLanguage||'zh';
+lan=lan.substr(0,2);
+var currentLang;
+if(lan.substr(0,2)=='zh'){
+currentLang={
+	before:"在你开始使用这个基于网页的软件之前，我们先需要了解一些内容。",
+	compVali:"我们要先检查一下兼容性",	
+	ie10:"在当前浏览器下，你必须启动文件夹下的EasyWebSvr.exe并访问127.0.0.1:8080才能使用本程序。",
+	nohtml5:'糟糕！你的浏览器太旧了！升级到最新的版本或者<a href="http://chrome.google.com">下载</a>Google Chrome.',
+	nocss:'你的浏览器不完全支持CSS3。程序可能会变得很难看。你可以升级你的浏览器以换取最佳体验。',
+	cong:"恭喜你，兼容性检查完成，你应该能够正常运行此程序。",
+	tut:[
+		"现在我们准备告诉你如何使用这个软件。",
+		"首先，这个面板有关于会议的基础信息设定。",
+		"你可以清除会话，保存会话或者导入会话。一定不要误操作！",
+		"左边你可以添加成员国,或者使用右键菜单来更改。",
+		"点击一个成员国可以进行更加具体的设置，譬如国家代码和该国的权利。",
+	],
+	tut2:[
+		"这是主界面。",
+		"左边是主发言名单。你可以输入国家代码。自动补全功能会帮你输入全名。",
+		"点击国家名就会显示计时器开始计时。",
+		"点击“发言名单”调出主菜单。过会儿自己探索里面的功能吧！",
+		"要注意，清除浏览器数据可能会导致会话丢失。",
+		"别忘了时不时在设置导出会话来备份，防止意外发生！",
+		"讲解完成了，现在就开始吧！",
+	],
+}}else{currentLang={
+	before:"Before you start using this web-based software, we need to know something.",
+	compVali:"We need to check compatibility first",
+	ie10:"In the current browser, you should run EasyWebSvr.exe under the folder and access 127.0.0.1:8080 if you want to use IE to use this software.",
+	nohtml5:'You are now using such an old browser. Please upgrade your browser to the newest version or <a href="http://chrome.google.com">download</a> Google Chrome.',
+	nocss:'Your browser cannot fully support CSS3. The display of this program may be influenced. You can upgrade your browser to the newest version to support these function.',
+	cong:"Congratulations! You passed compatibility check. You should be able to run this software.",
+	tut:[
+		"Now, we are going to let you know how to use this software.",
+		"First, there are basic settings on this panel.",
+		"You can clear session, export or import sessions. Don't make silly mistakes!",
+		"On the left, you can add member states to it, or use context menu to modify it.",
+		"Click on one member state to set details, such as country code and its rights.",
+	],
+	tut2:[
+		"This is main interface.",
+		"On the left, you can add to speakers' list. You can use auto completion by just typing country code into it.",
+		"Click on the speaker to start timing.",
+		"Click \"Speakers\" to show the main menu. You can discover it later!",
+		"Notice that clean the browser data may lose your session.",
+		"Don't forget to export session to backup, otherwise if accident...",
+		"We finished tutorial. Now, starting using it!",
+	],
+}};
+function dispText(t,tm,cb){
+	$(".title").html(t);
+	$(".title").animate({'opacity':1},1000);
+	setTimeout(function(){
+		$(".title").animate({'opacity':0},1000);
+		setTimeout(cb,1000);
+	},tm);
+}
+function tut(){
+	dispText(currentLang.cong,1000,function(){
+	var i=0,tut=currentLang.tut;
+	function rep(){
+		if(i<tut.length)dispText(tut[i++],2000,rep);
+		else{
+			var j=0,tut2=currentLang.tut2;
+			function rep2(){
+				if(j<tut2.length)dispText(tut2[j++],2000,rep2);
+				else{
+					window.location="bin/main.html";
+				}
+			}
+			rep2();
+			$("#l").html('<iframe src="bin/main.html" style="width:90%;height:100%;"></iframe>');
+		}
+	}
+	rep();
+	$("#l").html('<iframe src="bin/setting.html" style="width:90%;height:100%;"></iframe>');
+	});
+}
+$(window).load(function(){
+	$(".title").css('opacity',0);
+	dispText(currentLang.before,1000,function(){
+	dispText(currentLang.compVali,3000,function(){
+		var ief;
+		if(!Modernizr.localstorage&&Modernizr.postmessage){
+			dispText(currentLang.ie10,10000000);
+			return;
+		}
+		if(Modernizr.postmessage&&Modernizr.localstorage){
+			if(Modernizr.opacity&&Modernizr.csstransitions&&Modernizr.rgba){
+				tut();
+			}else{
+				dispText(currentLang.nocss,2000,tut);
+			}
+		}else{
+			dispText(currentLang.nohtml5,10000000);
+			return;
+		}
+	});
+	setTimeout('$("#l").append($(\'<span x-component="xLabel">Post Message '+disp(Modernizr.postmessage)+'</span>\'))',1000);
+	setTimeout('$("#l").append($(\'<span x-component="xLabel">Local Storage '+disp(Modernizr.localstorage)+'</span>\'))',1500);
+	setTimeout('$("#l").append($(\'<span x-component="xLabel">Opacity '+disp(Modernizr.opacity)+'</span>\'))',2000);
+	setTimeout('$("#l").append($(\'<span x-component="xLabel">Transition '+disp(Modernizr.csstransitions)+'</span>\'))',2500);
+	setTimeout('$("#l").append($(\'<span x-component="xLabel">RGBA '+disp(Modernizr.rgba)+'</span>\'))',3000);
+	});
+});
+</script>
+</head>
+<body style="height:100%;width:100%;padding:0px;margin:0px;">
+    <div class="title">
+    </div>
+    <div style="padding-left:16px;height:70%;" id="l" x-component="xList">
+</html>

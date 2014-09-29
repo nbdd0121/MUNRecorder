@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Model United Nations</title>
+<link rel="stylesheet" href="css/xcomponent.css" type="text/css"/>
+<link rel="stylesheet" href="css/maincss.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/xcomponent.js"></script>
+<script type="text/javascript" src="js/storage.js"></script>
+<script type="text/javascript" src="js/logic-voting.js"></script>
+<script type="text/javascript" src="js/language.js"></script>
+</head>
+<body x-component="xPanel" x-layout="border" style="width:100%;height:100%;" onload="init();">
+  <div x-component="xPanel" x-layout="border" x-pos="west" style="background-color:#F4F4F4">
+    <span x-component="xLabel" x-pos="north">
+		<div class="title" lang-binding="voting"></div>
+    </span>
+    <span x-component="xPanel">
+    <span x-component="xList" style="height:100%; overflow-y:auto;">
+    </span>
+    </span>
+  </div>
+<div x-component="xPanel" style="vertical-align:middle;text-align:center;">
+	<div id="specificCountry" style="display:none;">
+		<img onload="$(this).show();" onerror="$(this).hide();" style="display:none;" data-source="storageCountry" data-binding="src" data-binding-key="'img/'+code+'.png'"></img>
+		<span x-component="xLabel" data-source="storageCountry" data-binding="textContent" data-binding-key="name"></span>
+		<span x-component="xButton" lang-binding="agree" onclick="storageCountry.data.stat.pass=parseInt(storageCountry.data.stat.pass)+1;prevObj.className='votingAgree';moveOn();"></span>
+		<span x-component="xButton" lang-binding="veto" onclick="storageCountry.data.stat.veto=parseInt(storageCountry.data.stat.veto)+1;prevObj.className='votingVeto';moveOn();"></span>
+		<span x-component="xButton" id="abstain" lang-binding="abstain" onclick="storageCountry.data.stat.abstain=parseInt(storageCountry.data.stat.abstain)+1;prevObj.className='votingAbstain';moveOn();"></span>
+		<span x-component="xButton" id="pass" lang-binding="pass" onclick="moveOn();"></span>
+	</div>
+	<div id="generalInformation">
+		<span x-component="xLabel" data-source="storageGeneral" data-binding="textContent" data-binding-key="name"></span>
+		<span x-component="xLabel">
+			<span lang-binding="present"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="present"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="absent"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="absent"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="simpleMajority"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="sm"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="_23Majority"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="src.data['23m']"></span>
+		</span>
+		<span x-component="xButton" lang-binding="voting" onclick="$('[x-component=xListItem]:first-child').click();$('#generalInformation').hide(200);"></span>
+	</div>
+	<div id="resultPanel" style="display:none;">
+		<span x-component="xLabel" data-source="storageGeneral" data-binding="textContent" data-binding-key="name"></span>
+		<span x-component="xLabel">
+			<span lang-binding="agree"></span>: 
+			<span data-source="storageVoting" data-binding="textContent" data-binding-key="agree"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="veto"></span>: 
+			<span data-source="storageVoting" data-binding="textContent" data-binding-key="veto"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="abstain"></span>: 
+			<span data-source="storageVoting" data-binding="textContent" data-binding-key="abstain"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="_23Majority"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="src.data['23m']"></span>
+		</span>
+		<span x-component="xButton" lang-binding="passed" onclick="localStorage.MUNStorageHistory+='['+currentLang.passed+']<br/><br/>';if(window.parent)window.parent.postMessage('close','*');"></span>
+		<span x-component="xButton" lang-binding="failed" onclick="localStorage.MUNStorageHistory+='['+currentLang.failed+']<br/><br/>';if(window.parent)window.parent.postMessage('close','*');"></span>
+	</div>
+</div>
+</body>
+</html>

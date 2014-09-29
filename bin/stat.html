@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Model United Nations</title>
+<link rel="stylesheet" href="css/xcomponent.css" type="text/css"/>
+<link rel="stylesheet" href="css/maincss.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/xcomponent.js"></script>
+<script type="text/javascript" src="js/storage.js"></script>
+<script type="text/javascript" src="js/logic-stat.js"></script>
+<script type="text/javascript" src="js/language.js"></script>
+</head>
+<body x-component="xPanel" x-layout="border" style="width:100%;height:100%;" onload="init();">
+  <div x-component="xPanel" x-layout="border" x-pos="west" style="background-color:#F4F4F4">
+    <span x-component="xLabel" x-pos="north">
+		<div class="title" lang-binding="stat"></div>
+    </span>
+    <span x-component="xPanel">
+    <span x-component="xList" style="height:100%; overflow-y:auto;">
+    </span>
+    </span>
+  </div>
+<div x-component="xPanel" x-layout="border">
+	<span x-component="xLabel" x-pos="north">
+		<div class="title">
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="name"></span><span lang-binding="oneStat"></span>
+		</div>
+   </span>
+	<span x-component="xPanel" style="padding-left:16px;">
+	<div style="overflow-y:auto; height:100%;">
+	<div id="specificCountry" style="display:none;">
+		<!--<span x-component="xLabel">
+			<span lang-binding="present"></span>:  
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.present"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="absent"></span>:  
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.absent"></span>
+		</span>-->
+		<span x-component="xLabel">
+			<span lang-binding="attendance"></span>:  
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="(Math.round(stat.present*100/(stat.absent+stat.present))||0)+'%'"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="spkList"></span>
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.speak"></span>
+		</span>
+		<br/>
+		<span x-component="xLabel">
+			<span lang-binding="motion"></span><span lang-binding="modCaucus"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.mc"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="join"></span><span lang-binding="modCaucus"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.join"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="unmodCaucus"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.umc"></span>
+		</span>
+		<br/>
+		<span x-component="xLabel">
+			<span lang-binding="workingPaper"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.wp"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="draftRes"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.dr"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="draftDir"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.dd"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="agree"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.pass"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="veto"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.veto"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="abstain"></span>: 
+			<span data-source="storageCountry" data-binding="textContent" data-binding-key="stat.abstain"></span>
+		</span>
+	</div>
+	<div id="generalInformation">
+		<span x-component="xLabel" data-source="storageGeneral" data-binding="textContent" data-binding-key="name"></span>
+		
+	</div>
+	</div>
+	</span>
+</div>
+</body>
+</html>

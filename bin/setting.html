@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Model United Nations</title>
+<link rel="stylesheet" href="css/xcomponent.css" type="text/css"/>
+<link rel="stylesheet" href="css/maincss.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/xcomponent.js"></script>
+<script type="text/javascript" src="js/storage.js"></script>
+<script type="text/javascript" src="js/logic-setting.js"></script>
+<script type="text/javascript" src="js/language.js"></script>
+<script type="text/javascript" src="js/compress.js"></script>
+</head>
+<body x-component="xPanel" x-layout="border" style="width:100%;height:100%;" onload="init();" onunload="save();">
+  <div x-component="xPanel" x-layout="border" x-pos="west" style="background-color:#F4F4F4">
+    <span x-component="xLabel" x-pos="north">
+		<div class="title" lang-binding="members"></div>
+    </span>
+    <span x-component="xPanel">
+    <span x-component="xList" style="height:100%;overflow-y:auto;">
+      <span x-component="xListItem" id="listAdd" onfocus="this.textContent=''" onblur="addItem(this.textContent);this.textContent='+';"
+      	onkeypress="if(event.which==13){addItem(this.textContent);this.textContent='';return false;}">+</span>
+    </span>
+    </span>
+  </div>
+<div x-component="xPanel" x-layout="border">
+	<span x-component="xLabel" x-pos="north">
+		<div class="title" lang-binding="setInfo"></div>
+	</span>
+	<span x-component="xPanel" style="padding-left:16px;">
+		<div id="generalSetting">
+		<span x-component="xLabel">
+			<span lang-binding="confName"></span>
+			<span x-component="xTextBox" style="width:200px;" data-source="storageGeneral" data-binding="textContent" data-binding-key="name">MUN</span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="lang"></span>
+			<select x-component="xSelect" value onblur="window.location=window.location" style="width:200px;" data-source="storageGeneral" data-binding="value" data-binding-key="language">
+				<option value="english">English</option>
+				<option value="chinese">中文</option>
+			</select>
+		</span>
+		<span x-component="xLabel" lang-binding="defTime"></span>
+		<span x-component="xLabel">
+			<span lang-binding="spkList"></span>
+			<span x-component="xTextBox" style="width:100px;" x-attr="number[30,600]" data-source="storageGeneral" data-binding="textContent" data-binding-key="dt">120</span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="modCaucus"></span>: 
+			<span x-component="xTextBox" style="width:50px;" x-attr="number[20,300]" data-source="storageGeneral" data-binding="textContent" data-binding-key="dms">60</span>
+			/
+			<span x-component="xTextBox" style="width:100px;" x-attr="number[60,1200]" data-source="storageGeneral" data-binding="textContent" data-binding-key="dma">600</span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="unmodCaucus"></span>: 
+			<span x-component="xTextBox" style="width:100px;" x-attr="number[30,1200]" data-source="storageGeneral" data-binding="textContent" data-binding-key="dumc">300</span>
+		</span>
+		<span x-component="xLabel" style="display:none;">
+			<span lang-binding="voiceInRC"></span> 
+			<span x-component="xSwitch" data-source="storageGeneral" data-binding="value" data-binding-key="voice"></span>
+		</span>
+		<span x-component="xLabel" style="display:none;">
+			<span lang-binding="speechDet"></span><sup>Beta</sup>: 
+			<span x-component="xSwitch" data-source="storageGeneral" data-binding="value" data-binding-key="speech"></span>
+		</span>
+		<span x-component="xButton" lang-binding="clear" onclick="clearSession();"></span>
+		<span x-component="xButton" lang-binding="Export" onclick="Export();"></span>
+		<span x-component="xButton" lang-binding="Import" onclick="Import();"></span>
+	</div>
+	<div id="specificSetting" style="display:none;">
+		<span x-component="xLabel">
+			<span lang-binding="countryCode"></span>: 
+			<span x-component="xTextBox" style="width:200px;" data-source="storageCountry" data-binding="textContent" data-binding-key="code"
+				onfocus="dictionary[this.textContent]=null;" onblur="if(dictionary[this.textContent])this.textContent=currentLang.duplicate;dictionary[this.textContent]=1;">--INVALID--</span>
+		</span>
+		<span x-component="xLabel" lang-binding="setRight"></span>
+		<span x-component="xLabel">
+			<span lang-binding="motion"></span>: 
+			<span x-component="xSwitch" data-source="storageCountry" data-binding="value" data-binding-key="motion"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="submitPaper"></span>: 
+			<span x-component="xSwitch" data-source="storageCountry" data-binding="value" data-binding-key="paper"></span>
+		</span>
+		<span x-component="xLabel">
+			<span lang-binding="voting"></span>: 
+			<span x-component="xSwitch" data-source="storageCountry" data-binding="value" data-binding-key="voting"></span>
+		</span>
+	</div>
+	</span>
+</div>
+</body>
+</html>

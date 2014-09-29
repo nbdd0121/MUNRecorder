@@ -1,0 +1,72 @@
+.title {
+	font-size: 28px;
+	padding: 20px;
+	padding-left: 16px;
+	min-width:150px;
+}
+body{
+	background-color: white;
+	font-size:20px;
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	font-family: Arial "微软雅黑";
+}
+[x-component=xLabel]{
+	display:block;
+	margin:0px;
+	padding:8px;
+	padding-left:0px;
+	border:0px;
+}
+[x-component]{
+	font-size:20px;
+}
+[x-component=xListItem][present=true]{
+	background-image: url(../img/present.png);
+	background-position: center left 4px;
+	background-repeat: no-repeat;
+	padding-left: 24px;
+}
+[x-component=xListItem][present=false]{
+	background-image: url(../img/absent.png);
+	background-position: center left 4px;
+	background-repeat: no-repeat;
+	padding-left: 24px;
+}
+[x-component=xListItem].votingAgree{
+	background-color: green;
+	color:white;
+}
+[x-component=xListItem].votingVeto{
+	background-color: red;
+	color:white;
+}
+[x-component=xListItem].votingAbstain{
+	background-color: black;
+	color:white;
+}
+#mainCover{
+	position:absolute;
+	height:100%;
+	width:100%;
+	left:0px;
+	top:0px;
+	background-color: rgba(0,0,0,0.4);
+}
+#mainCover td{
+	text-align: center;
+	vertical-align: middle;
+}
+#mainCover div{
+	width:5%;
+	margin-left:85%;
+	height:25px;
+	text-align:right;
+	color:white;
+}
+#mainCover iframe{
+	width:80%;
+	height:80%;
+	border:0px;
+}

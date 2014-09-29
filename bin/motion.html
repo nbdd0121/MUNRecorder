@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Model United Nations</title>
+<link rel="stylesheet" href="css/xcomponent.css" type="text/css"/>
+<link rel="stylesheet" href="css/maincss.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/xcomponent.js"></script>
+<script type="text/javascript" src="js/storage.js"></script>
+<script type="text/javascript" src="js/logic-motion.js"></script>
+<script type="text/javascript" src="js/language.js"></script>
+</head>
+<body x-component="xPanel" x-layout="border" style="width:100%;height:100%;" onload="init();">
+  <div x-component="xPanel" x-layout="border" x-pos="west" style="background-color:#F4F4F4">
+    <span x-component="xLabel" x-pos="north">
+		<div class="title" lang-binding="motion"></div>
+    </span>
+    <span x-component="xPanel">
+    <span x-component="xList" x-attr="tab" style="height:100%; overflow-y:auto;">
+    </span>
+    </span>
+  </div>
+<div x-component="xPanel" x-layout="border">
+	<span x-component="xPanel" x-pos="north">
+		<div class="title" lang-binding="setInfo"></div>
+	</span>
+    <span x-component="xPanel" id="container">
+		<div style="overflow-y:auto; width:90%;height:100%;padding-left:16px;">		
+		<span x-component="xList" x-attr="tab" style="padding-left:0px;">
+			<span x-component="xTabItem" lang-binding="modCaucus"
+					onselect="$('#pTopic').show(100);$('#pTime').show(100);$('#pST').show(100);$('#timePP').text(storageGeneral.data.dms).attr('x-attr','number[20,300]');$('#timeTotal').text(storageGeneral.data.dma).attr('x-attr','number[60,1200]');"></span>
+			<span x-component="xTabItem" lang-binding="unmodCaucus"
+					onselect="$('#pTopic').hide(100);$('#pTime').show(100);$('#pST').hide(100);$('#timeTotal').text(storageGeneral.data.dumc).attr('x-attr','number[30,1200]');"></span>
+			<span x-component="xTabItem" lang-binding="setTime"
+					onselect="$('#pTopic').hide(100);$('#pTime').show(100);$('#pST').hide(100);$('#timeTotal').text(storageGeneral.data.dt).attr('x-attr','number[30,600]');"></span>
+			<span x-component="xTabItem" lang-binding="other"
+					onselect="$('#pTopic').show(100);$('#pTime').hide(100);"></span>
+		</span>
+		<span x-component="xLabel" id="pTopic">
+			<span lang-binding="topic"></span>: 
+			<span x-component="xTextBox" style="width:300px;" id="topic"></span>
+		</span> 
+		<span x-component="xLabel" id="pTime">
+			<span lang-binding="time"></span>: 
+			<span id="pST">
+				<span x-component="xTextBox" style="width:50px;" id="timePP"></span>
+				/
+			</span>
+			<span x-component="xTextBox" style="width:100px;" id="timeTotal"></span>
+		</span> 
+		<span x-component="xLabel" id="prst">
+			<span lang-binding="present"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="present"></span>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span lang-binding="simpleMajority"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="sm"></span>			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span lang-binding="_23Majority"></span>: 
+			<span data-source="storagePresent" data-binding="textContent" data-binding-key="src.data['23m']"></span>
+		</span> 
+		<span x-component="xButton" lang-binding="mPass" onclick="pass();"></span>
+		<span x-component="xButton" lang-binding="fail" onclick="fail();"></span>
+		</div>
+    </span>
+</div>
+</body>
+</html>

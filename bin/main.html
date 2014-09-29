@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Model United Nations</title>
+<link rel="stylesheet" href="css/xcomponent.css" type="text/css"/>
+<link rel="stylesheet" href="css/maincss.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/xcomponent.js"></script>
+<script type="text/javascript" src="js/storage.js"></script>
+<script type="text/javascript" src="js/logic-main.js"></script>
+<script type="text/javascript" src="js/language.js"></script>
+</head>
+<body x-component="xPanel" x-layout="border" style="width:100%;height:100%;" onload="init();" onunload="save();">
+  <div x-component="xPanel" x-layout="border" x-pos="west" style="background-color:#F4F4F4">
+    <span x-component="xLabel" x-pos="north" onclick="if(!xMenu.oPopupHandle)event.stopPropagation();mainMenu(event.x,event.y)">
+		<div class="title" lang-binding="speakers"></div>
+    </span>
+	<span x-component="xPanel">    
+    <span x-component="xList" style="height:100%; overflow-y:auto;">
+      <span x-component="xListItem" id="listAdd" onfocus="this.textContent=''" onblur="addItem(this.textContent);this.textContent='+';"
+      	onkeypress="if(event.which==13){addItem(this.textContent);this.textContent='';return false;}">+</span>
+    </span>
+    </span>
+  </div>
+<div x-component="xPanel">
+	<div id="history" x-component="xTextArea" style="cursor:auto;width:98%;height:100%;padding:1%;">
+	
+	</div>
+</div>
+</body>
+</html>
