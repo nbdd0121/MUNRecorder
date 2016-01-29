@@ -5,6 +5,10 @@
 	overflow: hidden;
 }
 
+[x-component=xTextBox]{
+	vertical-align: bottom;
+}
+
 [x-component=xTextArea]{
 	overflow-y:scroll;
 	word-wrap: break-word; 
@@ -18,6 +22,7 @@
 	background:#008287;
 	border-right:black 15px solid;
 	color:transparent;
+	vertical-align: bottom;
 }
 
 [x-component=xSwitch][value=false]{
